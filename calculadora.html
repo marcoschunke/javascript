@@ -1,0 +1,274 @@
+<html lang="pt-BR">
+
+<head>
+
+  <!-- Define o conjunto de caracteres -->
+  <meta charset="UTF-8">
+
+  <!-- Faz o site funcionar corretamente em celulares -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título exibido na aba do navegador -->
+  <title>Calculadora Simples</title>
+
+  <style>
+
+    /* =========================
+       ESTILIZAÇÃO GERAL DA PÁGINA
+       ========================= */
+    body {
+
+      /* Fonte utilizada */
+      font-family: Arial, sans-serif;
+
+      /* Cor de fundo da página */
+      background: #f2f2f2;
+
+      /* Centraliza a calculadora horizontalmente */
+      display: flex;
+      justify-content: center;
+
+      /* Centraliza verticalmente */
+      align-items: center;
+
+      /* Altura total da tela */
+      height: 100vh;
+    }
+
+    /* =========================
+       CAIXA DA CALCULADORA
+       ========================= */
+    .calculadora {
+
+      /* Fundo branco */
+      background: white;
+
+      /* Espaçamento interno */
+      padding: 20px;
+
+      /* Bordas arredondadas */
+      border-radius: 10px;
+
+      /* Sombra da calculadora */
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+      /* Largura da calculadora */
+      width: 250px;
+    }
+
+    /* =========================
+       DISPLAY DA CALCULADORA
+       ========================= */
+    .display {
+
+      /* Largura total */
+      width: 100%;
+
+      /* Altura do display */
+      height: 50px;
+
+      /* Espaço abaixo do display */
+      margin-bottom: 15px;
+
+      /* Tamanho do texto */
+      font-size: 24px;
+
+      /* Texto alinhado à direita */
+      text-align: right;
+
+      /* Espaçamento interno */
+      padding: 10px;
+
+      /* Mantém tamanho correto do elemento */
+      box-sizing: border-box;
+    }
+
+    /* =========================
+       ÁREA DOS BOTÕES
+       ========================= */
+    .botoes {
+
+      /* Utiliza grid */
+      display: grid;
+
+      /* Cria 4 colunas iguais */
+      grid-template-columns: repeat(4, 1fr);
+
+      /* Espaçamento entre os botões */
+      gap: 10px;
+    }
+
+    /* =========================
+       ESTILO DOS BOTÕES
+       ========================= */
+    button {
+
+      /* Altura do botão */
+      height: 50px;
+
+      /* Tamanho do texto */
+      font-size: 20px;
+
+      /* Remove borda padrão */
+      border: none;
+
+      /* Bordas arredondadas */
+      border-radius: 5px;
+
+      /* Cursor de mão */
+      cursor: pointer;
+
+      /* Cor do botão */
+      background: #e0e0e0;
+
+      /* Efeito suave */
+      transition: 0.2s;
+    }
+
+    /* Efeito ao passar o mouse */
+    button:hover {
+      background: #cfcfcf;
+    }
+
+    /* =========================
+       BOTÃO IGUAL
+       ========================= */
+    .igual {
+
+      /* Cor verde */
+      background: #4CAF50;
+
+      /* Texto branco */
+      color: white;
+    }
+
+    .igual:hover {
+      background: #45a049;
+    }
+
+    /* =========================
+       BOTÃO LIMPAR
+       ========================= */
+    .limpar {
+
+      /* Cor vermelha */
+      background: #f44336;
+
+      /* Texto branco */
+      color: white;
+    }
+
+    .limpar:hover {
+      background: #d73833;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       CALCULADORA
+       ========================= -->
+  <div class="calculadora">
+
+    <!-- Campo onde aparecem os números -->
+    <input type="text" id="display" class="display" disabled>
+
+    <!-- Área dos botões -->
+    <div class="botoes">
+
+      <!-- Linha 1 -->
+      <button onclick="adicionar('7')">7</button>
+      <button onclick="adicionar('8')">8</button>
+      <button onclick="adicionar('9')">9</button>
+      <button onclick="adicionar('/')">/</button>
+
+      <!-- Linha 2 -->
+      <button onclick="adicionar('4')">4</button>
+      <button onclick="adicionar('5')">5</button>
+      <button onclick="adicionar('6')">6</button>
+      <button onclick="adicionar('*')">*</button>
+
+      <!-- Linha 3 -->
+      <button onclick="adicionar('1')">1</button>
+      <button onclick="adicionar('2')">2</button>
+      <button onclick="adicionar('3')">3</button>
+      <button onclick="adicionar('-')">-</button>
+
+      <!-- Linha 4 -->
+      <button onclick="adicionar('0')">0</button>
+      <button onclick="adicionar('.')">.</button>
+
+      <!-- Botão de calcular -->
+      <button class="igual" onclick="calcular()">=</button>
+
+      <button onclick="adicionar('+')">+</button>
+
+      <!-- Botão limpar -->
+      <button class="limpar"
+              onclick="limpar()"
+              style="grid-column: span 4;">
+
+        C
+
+      </button>
+    </div>
+  </div>
+
+  <script>
+
+    /* =====================================
+       FUNÇÃO PARA ADICIONAR VALORES
+       ===================================== */
+    function adicionar(valor) {
+
+      /*
+        Pega o elemento com id "display"
+        e adiciona o valor clicado
+      */
+      document.getElementById("display").value += valor;
+    }
+
+    /* =====================================
+       FUNÇÃO PARA CALCULAR
+       ===================================== */
+    function calcular() {
+
+      /*
+        Armazena a expressão digitada
+        Exemplo: 5+5
+      */
+      let expressao = document.getElementById("display").value;
+
+      try {
+
+        /*
+          eval() interpreta a expressão matemática
+          e realiza o cálculo
+        */
+        document.getElementById("display").value = eval(expressao);
+
+      } catch {
+
+        /*
+          Caso aconteça algum erro,
+          exibe a palavra "Erro"
+        */
+        document.getElementById("display").value = "Erro";
+      }
+    }
+
+    /* =====================================
+       FUNÇÃO PARA LIMPAR DISPLAY
+       ===================================== */
+    function limpar() {
+
+      /* Remove todo conteúdo do display */
+      document.getElementById("display").value = "";
+    }
+
+  </script>
+
+</body>
+</html>
